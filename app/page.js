@@ -478,44 +478,44 @@ export default function Home() {
             </h1>
 
             <p className="hero-desc">
-              محرك مسح واستخراج متطور لبيانات الأنشطة والشركات في كافة المحافظات العراقية من أحدث قواعد البيانات والخرائط المعتمدة بدقة متناهية، مع كشف ذكي لشبكات الاتصال المحلية (زين، آسيا سيل، كورك) ونظام صياغة رسائل واتساب مخصصة لعروض تطبيقات التسوق بنظام الإيجار الشهري وتصدير فوري إلى Excel و vCard و JSON.
+              محرك مسح واستخراج متطور لبيانات الأنشطة والشركات في كافة المحافظات العراقية من أحدث قواعد البيانات والخرائط المعتمدة بدقة متناهية، مع كشف ذكي لشبكات الاتصال المحلية (زين، آسيا سيل، كورك) ونظام صياغة رسائل واتساب مخصصة لعروض تطبيقات التسوق بنظام الإيجار الشهري وتصدير فوري إلى جداول Excel وقواعد بيانات متكاملة وحفظ بجهات الاتصال.
             </p>
 
             {/* Live Counter Badges */}
             <div className="hero-stats-row">
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#34d399' }}>
-                  {stats.total.toLocaleString('ar-IQ')}
+                  {stats.total.toLocaleString()}
                 </span>
                 <span className="hero-stat-lbl">إجمالي الأنشطة المستخرجة</span>
               </div>
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#4ade80' }}>
-                  {stats.withPhone.toLocaleString('ar-IQ')}
+                  {stats.withPhone.toLocaleString()}
                 </span>
                 <span className="hero-stat-lbl">أرقام هواتف جاهزة للواتساب</span>
               </div>
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#fbbf24' }}>
-                  {stats.avgRating} ⭐
+                  {stats.avgRating || '0.0'} ⭐
                 </span>
                 <span className="hero-stat-lbl">متوسط التقييم العام</span>
               </div>
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#38bdf8' }}>
-                  {stats.zainCount}
+                  {stats.zainCount.toLocaleString()}
                 </span>
                 <span className="hero-stat-lbl">زين العراق (Zain)</span>
               </div>
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#fb7185' }}>
-                  {stats.asiacellCount}
+                  {stats.asiacellCount.toLocaleString()}
                 </span>
                 <span className="hero-stat-lbl">آسيا سيل (Asiacell)</span>
               </div>
               <div className="hero-stat-box">
                 <span className="hero-stat-val" style={{ color: '#fcd34d' }}>
-                  {stats.korekCount}
+                  {stats.korekCount.toLocaleString()}
                 </span>
                 <span className="hero-stat-lbl">كورك (Korek)</span>
               </div>
@@ -551,7 +551,7 @@ export default function Home() {
               <div className="panel-icon-circle">⚙️</div>
               <div>
                 <h3 className="panel-title">إعدادات محرك الاستخراج والخدمات المتاحة</h3>
-                <p className="panel-subtitle">اختر محرك البحث (Google أو OpenStreetMap) وحدد سقف النتائج ومتابعة الاستهلاك</p>
+                <p className="panel-subtitle">اختر محرك البحث (المعتمد أو الشامل) وحدد سقف النتائج ومتابعة العمليات</p>
               </div>
             </div>
           </div>
@@ -647,7 +647,7 @@ export default function Home() {
           </div>
 
           {/* Action Buttons Row */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '22px', alignItems: 'center' }}>
+          <div className="action-buttons-row">
             <button
               type="button"
               className="btn-primary"

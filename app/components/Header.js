@@ -51,23 +51,13 @@ export default function Header({
             type="button"
             onClick={onOpenMetrics}
             className="btn-secondary header-metrics-btn"
-            style={{
-              padding: '7px 12px',
-              fontSize: '0.82rem',
-              fontWeight: 900,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              borderColor: 'rgba(245, 158, 11, 0.4)',
-              background: 'rgba(245, 158, 11, 0.08)',
-            }}
-            title="متابعة استهلاك الطلبات والتكلفة التقديرية وحد التوقف"
+            title="متابعة استهلاك العمليات والتكلفة التقديرية وحد التوقف"
           >
             <span>📊</span>
             <span style={{ color: '#fbbf24', direction: 'ltr', display: 'inline-block' }}>
               {totalRequests} طلب
             </span>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+            <span className="header-metrics-cost" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
               (${estimatedCostUSD.toFixed(2)})
             </span>
           </button>
@@ -78,12 +68,12 @@ export default function Header({
             <span className="status-text-full">
               قاعدة البيانات:{' '}
               <strong style={{ color: 'var(--primary)', direction: 'ltr', display: 'inline-block', fontSize: '0.94rem', fontWeight: 900 }}>
-                {totalRecords.toLocaleString('ar-IQ')}
+                {totalRecords.toLocaleString()}
               </strong>{' '}
               سجل
             </span>
             <span className="status-text-compact">
-              <strong>{totalRecords.toLocaleString('ar-IQ')}</strong>
+              <strong>{totalRecords.toLocaleString()} سجل</strong>
             </span>
           </div>
 

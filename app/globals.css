@@ -2038,26 +2038,55 @@ html, body {
    ============================================================================== */
 @media (max-width: 768px) {
   .header-inner {
-    padding: 10px 14px;
-    gap: 10px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .logo-wrapper {
+    gap: 8px;
   }
   .brand-title {
-    font-size: 1.12rem;
+    font-size: 0.98rem;
+    gap: 4px;
+    line-height: 1.1;
   }
   .brand-subtitle {
     display: none !important;
   }
   .logo-icon-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+  .logo-icon-box svg {
+    width: 22px;
+    height: 22px;
+  }
+  .header-actions {
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .header-metrics-btn {
+    padding: 5px 8px !important;
+    font-size: 0.74rem !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+  }
+  .header-metrics-cost {
+    display: none !important;
+  }
+  .status-pill {
+    padding: 5px 8px !important;
+    font-size: 0.74rem !important;
+    gap: 5px !important;
+    border-radius: 8px !important;
   }
   .status-text-full {
     display: none !important;
   }
   .status-text-compact {
     display: inline-block !important;
-    font-size: 0.85rem;
+    font-size: 0.74rem !important;
+    font-weight: 900 !important;
   }
   .header-guide-btn {
     display: none !important;
@@ -2067,7 +2096,11 @@ html, body {
   }
   .theme-btn-icon {
     display: inline-block !important;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+  }
+  .header-theme-btn {
+    padding: 5px 8px !important;
+    border-radius: 8px !important;
   }
 }
 
@@ -2231,49 +2264,29 @@ html, body {
 }
 
 /* ==============================================================================
-   RESPONSIVE MOBILE VIEWPORT REFINEMENTS
+   DESKTOP COMPONENT LAYOUTS & CONTAINERS
    ============================================================================== */
-@media (max-width: 640px) {
-  .hero-banner {
-    padding: 24px 16px;
-    margin: 14px 0 20px;
-  }
-  .hero-h1 {
-    font-size: 1.4rem;
-    line-height: 1.35;
-  }
-  .hero-desc {
-    font-size: 0.86rem;
-    line-height: 1.6;
-  }
-  .hero-stats-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .hero-stat-box {
-    padding: 12px 10px;
-  }
-  .control-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .export-toolbar-box {
-    padding: 16px 14px;
-  }
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .places-table th,
-  .places-table td {
-    padding: 12px 10px;
-    font-size: 0.82rem;
-  }
+.params-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
 }
 
-/* ==============================================================================
-   ENGINE SERVICE TABS & METRICS CONTROLS
-   ============================================================================== */
+.wa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.action-buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+  align-items: center;
+}
+
 .engine-tabs-container {
   margin: 24px 0 16px;
 }
@@ -2282,12 +2295,6 @@ html, body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-}
-
-@media (max-width: 640px) {
-  .engine-tabs-bar {
-    grid-template-columns: 1fr;
-  }
 }
 
 .engine-tab-btn {
@@ -2422,6 +2429,428 @@ html, body {
   background: #ecfdf5;
   color: #047857;
   border-color: #6ee7b7;
+}
+
+/* ==============================================================================
+   RESPONSIVE MOBILE VIEWPORT REFINEMENTS (TYPOGRAPHY & RESIZED ITEMS)
+   ============================================================================== */
+@media (max-width: 640px) {
+  /* Global Page Spacing */
+  .app-container {
+    padding: 0 10px !important;
+  }
+  .content-wrapper {
+    padding-bottom: 20px;
+  }
+
+  /* 1. Hero Banner */
+  .hero-banner {
+    padding: 16px 12px !important;
+    margin: 8px 0 16px !important;
+    border-radius: 18px !important;
+  }
+  .hero-tag {
+    font-size: 0.7rem !important;
+    padding: 4px 9px !important;
+    margin-bottom: 8px !important;
+    gap: 5px !important;
+    border-radius: 999px !important;
+  }
+  .hero-h1 {
+    font-size: 1.2rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 8px !important;
+    letter-spacing: -0.2px !important;
+  }
+  .hero-desc {
+    font-size: 0.8rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* 2. Live Counter Badges Grid (Symmetric 2-Column Responsive Tiles) */
+  .hero-stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
+    width: 100% !important;
+  }
+  .hero-stat-box {
+    padding: 10px 10px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    min-height: 60px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .hero-stat-val {
+    font-size: 1.25rem !important;
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+    margin-bottom: 2px !important;
+    direction: ltr !important;
+    text-align: right !important;
+  }
+  .hero-stat-lbl {
+    font-size: 0.7rem !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    margin-top: 2px !important;
+  }
+
+  /* 3. Control Studio Grid & Panels */
+  .control-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    margin-bottom: 14px !important;
+  }
+  .section-panel {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  .panel-header {
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
+  }
+  .panel-title-wrap {
+    gap: 8px !important;
+  }
+  .panel-icon-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1rem !important;
+    border-radius: 9px !important;
+  }
+  .panel-title {
+    font-size: 0.98rem !important;
+    font-weight: 900 !important;
+  }
+  .panel-subtitle {
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+  .badge-count {
+    font-size: 0.7rem !important;
+    padding: 2px 7px !important;
+  }
+
+  /* 4. Governorates Dynamic Grid */
+  .governorate-selector-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    max-height: 190px !important;
+    padding: 2px !important;
+    margin-bottom: 12px !important;
+  }
+  .gov-pill-btn {
+    padding: 7px 9px !important;
+    font-size: 0.8rem !important;
+    gap: 5px !important;
+    border-radius: 9px !important;
+  }
+  .areas-chips-container {
+    max-height: 120px !important;
+    padding: 5px !important;
+    gap: 5px !important;
+    margin-bottom: 10px !important;
+  }
+  .area-chip {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+    border-radius: 8px !important;
+  }
+
+  /* 5. Category Tabs & Keywords Cloud */
+  .categories-tabs {
+    gap: 5px !important;
+    margin-bottom: 8px !important;
+  }
+  .cat-tab-btn {
+    padding: 5px 9px !important;
+    font-size: 0.76rem !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+  }
+  .keywords-cloud {
+    max-height: 120px !important;
+    padding: 6px !important;
+    gap: 5px !important;
+    margin-bottom: 10px !important;
+  }
+  .kw-badge {
+    padding: 4px 8px !important;
+    font-size: 0.74rem !important;
+    border-radius: 8px !important;
+  }
+
+  /* 6. Extraction Parameters & Engine Tabs */
+  .engine-tabs-bar {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .engine-tab-btn {
+    padding: 10px 12px !important;
+    gap: 10px !important;
+    border-radius: 12px !important;
+  }
+  .engine-tab-icon {
+    font-size: 1.4rem !important;
+  }
+  .engine-tab-text strong {
+    font-size: 0.88rem !important;
+  }
+  .engine-tab-desc {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+  .params-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+  }
+  .form-label {
+    font-size: 0.78rem !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-bottom: 4px !important;
+  }
+  .custom-input {
+    padding: 9px 12px !important;
+    font-size: 0.84rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* 7. Action Buttons */
+  .action-buttons-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-top: 14px !important;
+  }
+  .action-buttons-row > button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .btn-primary {
+    padding: 11px 14px !important;
+    font-size: 0.88rem !important;
+    border-radius: 12px !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .btn-secondary {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    justify-content: center !important;
+  }
+  .btn-danger {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    justify-content: center !important;
+  }
+
+  /* 8. Progress Bar */
+  .progress-card {
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
+  }
+  .progress-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+
+  /* 9. WhatsApp Studio */
+  .whatsapp-studio-panel {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+  }
+  .wa-studio-title {
+    font-size: 0.98rem !important;
+  }
+  .wa-studio-subtitle {
+    font-size: 0.74rem !important;
+  }
+  .wa-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .wa-section-heading {
+    font-size: 0.84rem !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+  .wa-tmpl-pill {
+    padding: 9px 12px !important;
+  }
+  .wa-tmpl-title {
+    font-size: 0.84rem !important;
+  }
+  .wa-tmpl-desc {
+    font-size: 0.72rem !important;
+  }
+  .wa-tags-row {
+    gap: 5px !important;
+  }
+  .wa-tag-pill {
+    font-size: 0.74rem !important;
+    padding: 4px 8px !important;
+  }
+  .wa-preview-mockup {
+    padding: 12px 10px !important;
+  }
+  .wa-bubble-sent {
+    font-size: 0.84rem !important;
+    padding: 10px 12px !important;
+    max-width: 98% !important;
+  }
+  .wa-tip-box {
+    font-size: 0.76rem !important;
+    padding: 10px 12px !important;
+  }
+
+  /* 10. Results Stats & Toolbar */
+  .selection-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+  }
+  .selection-stats-text {
+    font-size: 0.82rem !important;
+    text-align: center !important;
+  }
+  .results-filter-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+    margin: 8px 0 12px !important;
+  }
+  .results-filter-toolbar > div {
+    width: 100% !important;
+  }
+  .results-filter-toolbar select {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.82rem !important;
+    padding: 8px 10px !important;
+  }
+  .results-filter-toolbar input {
+    font-size: 0.82rem !important;
+    padding: 8px 12px !important;
+  }
+
+  /* 11. Cards Grid & Business Cards */
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+  }
+  .business-card {
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
+  }
+  .card-title {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+  }
+  .card-category-badge {
+    font-size: 0.7rem !important;
+    padding: 2px 7px !important;
+  }
+  .engine-badge {
+    font-size: 0.68rem !important;
+    padding: 2px 6px !important;
+  }
+  .card-info-item {
+    font-size: 0.78rem !important;
+  }
+  .card-actions-row {
+    padding-top: 10px !important;
+    gap: 6px !important;
+  }
+  .card-actions-row .btn-whatsapp {
+    font-size: 0.8rem !important;
+    padding: 7px 10px !important;
+  }
+  .card-actions-row .btn-secondary {
+    font-size: 0.76rem !important;
+    padding: 6px 8px !important;
+  }
+
+  /* 12. Places Table */
+  .places-table th,
+  .places-table td {
+    padding: 8px 6px !important;
+    font-size: 0.76rem !important;
+  }
+
+  /* 13. Export Toolbar */
+  .export-toolbar-box {
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+    gap: 10px !important;
+  }
+  .export-toolbar-box input {
+    width: 100% !important;
+    font-size: 0.82rem !important;
+  }
+  .export-toolbar-box .btn-secondary {
+    font-size: 0.78rem !important;
+    padding: 8px 8px !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* 14. Modals */
+  .modal-box {
+    width: 96% !important;
+    max-height: 90vh !important;
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+  }
+  .modal-header h2,
+  .modal-header h3 {
+    font-size: 1.05rem !important;
+  }
+  .guide-modal-card {
+    width: 96% !important;
+    max-height: 90vh !important;
+    border-radius: 16px !important;
+  }
+  .guide-modal-header {
+    padding: 12px 14px !important;
+  }
+  .guide-modal-title {
+    font-size: 0.98rem !important;
+  }
+
+  /* 15. Footer */
+  .footer-wrap {
+    padding: 20px 12px 80px 12px !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .footer-links-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .footer-gov-btn {
+    font-size: 0.78rem !important;
+    padding: 6px 8px !important;
+  }
 }
 
 

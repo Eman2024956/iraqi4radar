@@ -84,7 +84,7 @@ export default function MetricsModal({
               ${estimatedCostUSD.toFixed(3)}
             </strong>
             <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 700 }}>
-              ~{costIQD.toLocaleString('ar-IQ')} دينار عراقي
+              ~{costIQD.toLocaleString()} دينار عراقي
             </span>
           </div>
         </div>
