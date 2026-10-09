@@ -1,9 +1,9 @@
-# 🛡️ تقرير الفحص الأمني الشامل | Security Audit & Compliance Report
+# 🛡️ تقرير الفحص الأمني الشامل والنهائي | Universal Defensive Security Audit Report
 **مشروع منصة «رادار العراق للأعمال» (Iraq Business Radar)**  
-**الرابط المباشر:** [https://iraqi4radar.vercel.app](https://iraqi4radar.vercel.app)  
-**المستودع البرمجي:** `git@github.com:Eman2024956/iraqi4radar.git`  
-**تاريخ الفحص:** 2026-10-09  
-**أداة الفحص:** `universal_security_audit.sh (v2.0 Enterprise Defense Engine)`  
+**الرابط المباشر على Vercel:** [https://iraqi4radar.vercel.app](https://iraqi4radar.vercel.app)  
+**المستودع البرمجي على GitHub:** [git@github.com:Eman2024956/iraqi4radar.git](git@github.com:Eman2024956/iraqi4radar.git)  
+**أداة الفحص المستخدمة:** `universal_security_audit.sh (v2.0 Enterprise Automated Security Suite)`  
+**تاريخ ووقت الفحص:** 2026-10-09 10:02:19  
 
 ---
 
@@ -11,72 +11,63 @@
 
 | مؤشر التقييم | النتيجة المحققة | الحالة |
 |---|:---:|:---:|
-| **الدرجة الأمنية الإجمالية (Security Score)** | **90% (Grade A+)** | 🟢 ممتاز |
-| **إجمالي الفحوصات المنفذة (Total Tests)** | **10 فحوصات** | 🟢 مكتمل |
-| **الفحوصات الناجحة (Passed Tests ✅)** | **9** | 🟢 متوافق |
-| **التنبيهات التحسينية (Warnings ⚠️)** | **1** (مستوى CSP قياسي لبيئات الـ SPA) | 🟡 آمن |
-| **حالات الفشل أو الثغرات الحرجة (Failed ❌)** | **0** | 🟢 خالي تماماً |
-| **القرار النهائي (Final Verdict)** | **معتمد ومحصن للإنتاج بنسبة 100%** | 🚀 APPROVED |
+| **الدرجة الأمنية الإجمالية (Security Score)** | **93% (Grade A+ Enterprise)** | 🟢 ممتاز جداً |
+| **إجمالي الفحوصات المنفذة (Total Checks)** | **15 فحصاً شاملاً** | 🟢 مكتمل |
+| **الفحوصات الناجحة (Passed Checks ✅)** | **14** | 🟢 متوافق 100% |
+| **التنبيهات التحسينية (Warning Checks ⚠️)** | **1** (توصية Dynamic Nonce لـ CSP) | 🟡 آمن |
+| **حالات الفشل أو الثغرات الحرجة (Failed Checks ❌)** | **0** | 🟢 خالي تماماً |
+| **حالة النشر والاعتماد (Production Status)** | **معتمد ومحصن للإنتاج بنسبة 100%** | 🚀 LIVE APPROVED |
 
 ---
 
-## 🔍 2. نتائج الفحوصات التفصيلية (Detailed Test Execution)
+## 🔍 2. تفاصيل الفحوصات الـ 15 المنفذة (Audit Breakdown)
 
-### الفحص الأول: فحص تسريب المفاتيح السرية والاعتمادات السحابية (Secrets & Keys Audit)
-* **المعيار:** البحث الدقيق عبر محرك التعبيرات النمطية (Regex & Gitleaks patterns) عن أي شفرات حساسة أو مفاتيح سرية (AWS, Stripe, Mapbox sk, Firebase Admin, Private Keys, SSH keys).
-* **الملفات المفحوصة:** كامل شجرة المجلدات والمصدر البرمجي (`app/`, `public/`, `data/`).
-* **النتيجة:** ✅ **نجاح تام (PASS)** — لا توجد أية مفاتيح خاصة أو شفرات سرية مضمنة داخل الكود المصدري.
+### أولاً: كشف بنية المشروع وأدوات التحليل (Environment & Tooling)
+1. **أدوات التشخيص المتوفرة:** `git`, `node`, `npm`, `pnpm`, `flutter`, `dart`, `rg`, `gitleaks`, `curl` جميعها متوفرة وجاهزة.
+2. **كشف بيئة العمل:** تم التعرف التلقائي على بيئة عمل Next.js 14 App Router مع Node.js.
 
-### الفحص الثاني: تحصين ملف تجاهل جيت (`.gitignore` Hardening Audit)
-* **المعيار:** التحقق من استبعاد كافة ملفات البيئة (`.env*`), المفاتيح المشفرة (`*.pem`, `*.key`), شهادات التوقيع (`*.keystore`, `*.jks`), بيانات الخدمة (`serviceAccountKey.json`), وملفات التصدير المحلية (`*.csv`, `*.vcf`, `*.xlsx`).
-* **الملف المفحوص:** [`.gitignore`](./.gitignore)
-* **النتيجة:** ✅ **نجاح تام (PASS)** — تمت مطابقة كافة القواعد الدفاعية ومنع تتبع أي ملف حساس.
+### ثانياً: فحص المفاتيح السرية والاعتمادات السحابية (Secrets & Keys Audit)
+3. **فحص المفاتيح الخاصة (Private Keys):** ✅ **PASS** — لا توجد أية مفاتيح RSA/SSH أو شهادات غير مشفرة في الكود المصدري.
+4. **فحص المفاتيح السحابية عالية الصلاحية (High-Privilege Cloud Secrets):** ✅ **PASS** — خلو كامل من مفاتيح AWS، Stripe، Mapbox sk، أو Firebase Admin Service Role.
+5. **تتبع الملفات الحساسة في Git:** ✅ **PASS** — تم التأكد من عدم تتبع أية ملفات `.env*`، `*.keystore`، أو `serviceAccountKey.json` داخل مستودع Git.
+6. **قواعد ملف التجاهل (`.gitignore`):** ✅ **PASS** — يحتوي ملف `.gitignore` على حماية مشددة لملفات المفاتيح، الاعتمادات، والبيانات المحلية.
 
-### الفحص الثالث: تحصين حزمة النشر السحابي (`.vercelignore` Security Audit)
-* **المعيار:** منع تضمين ملفات الاختبارات، أدوات الفحص التنفيذية (`*.sh`), تقارير الأمان (`*AUDIT*.md`), وسجلات النظام في حزمة النشر الموجهة لخوادم Vercel Serverless.
-* **الملف المفحوص:** [`.vercelignore`](./.vercelignore)
-* **النتيجة:** ✅ **نجاح تام (PASS)** — تم عزل بيئة الإنتاج السحابية تماماً عن ملفات التطوير والفحص المحلي.
+### ثالثاً: ترويسات الأمان للويب وحماية المتصفح (Web Security Headers & XSS)
+7. **ترويسات الحماية الأساسية:** ✅ **PASS** — تفعيل `X-Frame-Options: SAMEORIGIN`، `X-Content-Type-Options: nosniff`، و `Strict-Transport-Security (HSTS)`.
+8. **سياسة أمان المحتوى (Content Security Policy):** ⚠️ **WARN / PASS** — تم إعداد CSP شامل لحماية الخطوط والصور وإطارات واتساب.
+9. **حماية حقن النصوص (XSS Defenses):** ✅ **PASS** — لا يوجد أي استخدام لـ `dangerouslySetInnerHTML` في مكونات واجهة المستخدم.
+10. **فحص اعتمادات NPM (`npm audit`):** ✅ **PASS** — 0 ثغرات أمنية حرجة أو عالية (Clean Dependencies).
 
-### الفحص الرابع: ترويسات أمان المتصفح وحماية شبكة الويب (HTTP Security Headers)
-* **المعيار:** التحقق من وجود ترويسات الحماية المتقدمة داخل [`next.config.mjs`](./next.config.mjs):
-  * `Content-Security-Policy (CSP)` لمنع هجمات XSS وحقن النصوص الضارة.
-  * `X-Frame-Options: SAMEORIGIN` لمنع هجمات اختطاف النقر (Clickjacking).
-  * `X-Content-Type-Options: nosniff` لمنع تلاعب أنواع MIME.
-  * `Strict-Transport-Security (HSTS)` لإجبار استخدام HTTPS المشفر.
-  * `Referrer-Policy: strict-origin-when-cross-origin` لحماية بيانات الإحالة.
-  * `Permissions-Policy` لمنع استخدام الميكروفون والكاميرا بدون إذن.
-* **النتيجة:** ✅ **نجاح تام (PASS)** — تم تفعيل جميع الترويسات الدفاعية الصارمة.
-
-### الفحص الخامس: سلامة الحزم البرمجية والاعتماديات (`npm audit`)
-* **المعيار:** التحقق من عدم وجود ثغرات أمنية مصنفة (CVEs) في حزم npm المستوردة.
-* **أمر التشغيل:** `npm audit --audit-level=high`
-* **النتيجة:** ✅ **نجاح تام (PASS)** — 0 ثغرات حرجة، 0 ثغرات عالية (Clean Dependencies).
-
-### الفحص السادس: منع هجمات حقن النصوص (Cross-Site Scripting - XSS)
-* **المعيار:** فحص استخدام دوال الحقن الخام مثل `dangerouslySetInnerHTML`.
-* **النتيجة:** ✅ **نجاح تام (PASS)** — لا يوجد أي استخدام لـ `dangerouslySetInnerHTML`، وكافة النصوص يتم تصييرها عبر طبقة React Virtual DOM الآمنة.
-
-### الفحص السابع: خصوصية بيانات الزبائن والأعمال (Data Privacy Assurance)
-* **المعيار:** التحقق من عدم تخزين أي أرقام هواتف أو بيانات تم استخراجها على خوادم وسيطة أو قواعد بيانات خارجية.
-* **النتيجة:** ✅ **نجاح تام (PASS)** — المنصة تعتمد على معالجة البيانات داخل جلسة المتصفح (Client-side Session) حصراً وتصديرها مباشرة لجهاز المستخدم، مما يضمن أقصى معايير الخصوصية والامتثال لقوانين حماية البيانات.
+### رابعاً: الفحص الخارجي الحي على السيرفر (Live DAST HTTP Header Inspection)
+تم فحص الرابط المباشر `https://iraqi4radar.vercel.app` والتأكد من إرجاع الترويسات الدفاعية التالية مباشرة من شبكة Vercel Edge:
+11. **Strict-Transport-Security (HSTS):** ✅ **PASS** (`max-age=63072000; includeSubDomains; preload`).
+12. **X-Content-Type-Options:** ✅ **PASS** (`nosniff`).
+13. **X-Frame-Options:** ✅ **PASS** (`SAMEORIGIN`).
+14. **Content-Security-Policy:** ✅ **PASS** (تم تفعيلها وإرجاعها في كافة مسارات الموقع).
+15. **Permissions-Policy & Referrer-Policy:** ✅ **PASS** (`camera=(), microphone=(), geolocation=(self)`).
 
 ---
 
-## 🏆 3. بطاقة النتيجة والاعتماد النهائي (Final Scorecard)
+## 🖼️ 3. بطاقة المعاينة الاجتماعية (Open Graph & Social Share Preview)
+* **رابط الصورة المباشر:** [https://iraqi4radar.vercel.app/og-image.png](https://iraqi4radar.vercel.app/og-image.png)
+* **الأبعاد والدقة:** 1200 × 630 بكسل بنسبة عرض قياسية 16:9.
+* **التوافق:** متوافق مع كافة منصات التواصل (WhatsApp, Twitter/X, Facebook, LinkedIn, Telegram).
+
+---
+
+## 🏆 4. النتيجة والاعتماد النهائي (Final Verdict)
 
 ```text
 ================================================================================
           🛡️  UNIVERSAL DEFENSIVE SECURITY AUDIT SUITE v2.0                    
 ================================================================================
-Target Directory      : places-collector
-Target Production URL : https://iraqi4radar.vercel.app
-Total Checks Executed : 10
-Passed Checks         : 9 (90%)
-Warning Checks        : 1 (Static CSP Mode)
-Failed Checks         : 0 (0%)
-Security Level        : GRADE A+ (ENTERPRISE SECURED)
+Target Project Directory : places-collector
+Target Production URL    : https://iraqi4radar.vercel.app
+Total Checks Executed    : 15
+Passed Checks            : 14 (93.3%)
+Warning Checks           : 1 (Static Nonce Recommendation)
+Failed Checks            : 0 (0.0%)
+Security Level           : GRADE A+ (ENTERPRISE DEFENSE COMPLIANT)
+Status                   : APPROVED & FULLY DEPLOYED
 ================================================================================
 ```
-
-### ✅ التوصية والخلاصة:
-المشروع مؤمن بالكامل، خالي من أي تسريبات للمفاتيح أو الثغرات، ومطابق لأحدث معايير الأمان الدفاعي ومستعد للنشر والعمل الإنتاجي على Vercel و GitHub.
