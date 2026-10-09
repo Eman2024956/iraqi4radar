@@ -10,6 +10,7 @@ import ExportToolbar from './components/ExportToolbar';
 import QuickMessengerModal from './components/QuickMessengerModal';
 import GuideModal from './components/GuideModal';
 import MetricsModal from './components/MetricsModal';
+import PlaceDetailsModal from './components/PlaceDetailsModal';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
 import { IRAQ_GOVERNORATES, BUSINESS_CATEGORIES, WHATSAPP_TEMPLATES } from './data/iraqData';
@@ -72,6 +73,7 @@ export default function Home() {
   const [sentMap, setSentMap] = useState({});
   const [isMessengerOpen, setIsMessengerOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [selectedPlaceForDetails, setSelectedPlaceForDetails] = useState(null);
 
   // 5. التحديد والفرز والعرض
   const [selectedIds, setSelectedIds] = useState([]);
@@ -984,6 +986,7 @@ export default function Home() {
                     onToggleSelect={toggleSelect}
                     isSent={Boolean(sentMap[place.id])}
                     onMarkSent={handleMarkSent}
+                    onOpenDetails={setSelectedPlaceForDetails}
                   />
                 ))}
               </div>
@@ -1154,6 +1157,15 @@ export default function Home() {
                                   الخريطة
                                 </a>
                               )}
+                              <button
+                                type="button"
+                                onClick={() => setSelectedPlaceForDetails(place)}
+                                className="btn-secondary"
+                                style={{ padding: '5px 10px', fontSize: '0.78rem', fontWeight: 800 }}
+                                title={place.engine === 'osm' ? 'عرض تفاصيل ووسوم OpenStreetMap الكاملة' : 'عرض تفاصيل المكان'}
+                              >
+                                {place.engine === 'osm' ? '🔍 OSM' : '🔍 تفاصيل'}
+                              </button>
                             </div>
                           </td>
                         </tr>
@@ -1193,6 +1205,13 @@ export default function Home() {
         setMaxRequestsLimit={setMaxRequestsLimit}
         enableAutoStop={enableAutoStop}
         setEnableAutoStop={setEnableAutoStop}
+      />
+
+      {/* Place Deep Details Modal (OpenStreetMap & Google Maps) */}
+      <PlaceDetailsModal
+        isOpen={Boolean(selectedPlaceForDetails)}
+        onClose={() => setSelectedPlaceForDetails(null)}
+        place={selectedPlaceForDetails}
       />
 
       {/* Footer */}

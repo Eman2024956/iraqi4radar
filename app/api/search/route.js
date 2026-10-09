@@ -214,6 +214,9 @@ export async function POST(req) {
           status: 'OPERATIONAL',
           querySource: query,
           engine: 'osm',
+          osmId: p.osm_id,
+          osmType: (p.osm_type || 'node').toUpperCase().charAt(0),
+          rawTags: p.extratags || {},
         });
       }
 

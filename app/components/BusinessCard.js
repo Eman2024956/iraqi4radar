@@ -10,6 +10,7 @@ export default function BusinessCard({
   onToggleSelect,
   isSent,
   onMarkSent,
+  onOpenDetails,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -220,6 +221,17 @@ export default function BusinessCard({
             📞
           </a>
         )}
+
+        {/* Deep Details (OSM / Google) */}
+        <button
+          type="button"
+          onClick={() => onOpenDetails && onOpenDetails(place)}
+          className="btn-secondary"
+          style={{ padding: '7px 11px', fontSize: '0.8rem', fontWeight: 800 }}
+          title={place.engine === 'osm' ? 'عرض تفاصيل ووسوم OpenStreetMap الكاملة' : 'عرض تفاصيل النشاط'}
+        >
+          {place.engine === 'osm' ? '🔍 OSM' : '🔍 تفاصيل'}
+        </button>
 
         {/* Copy Details */}
         <button
