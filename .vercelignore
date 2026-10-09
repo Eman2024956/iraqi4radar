@@ -1,0 +1,63 @@
+# ==============================================================================
+# VERCEL SECURITY IGNORE - .vercelignore
+# Excludes sensitive files, local environment configs, and data exports
+# ==============================================================================
+
+# Secrets and local environment files
+.env
+.env*.local
+.env.local
+.env.development
+.env.test
+.env.production.local
+*.env
+*.env.*
+
+# API keys and certificates
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.pkcs12
+*service-account*.json
+*credentials*.json
+*client_secret*.json
+
+# Data exports and scraped contacts (Do not bundle in serverless lambda)
+*.csv
+*.xlsx
+*.vcf
+*.sql
+*.dump
+exports/
+backups/
+downloads/
+scratch/
+temp/
+tmp/
+
+# Documentation and repository metadata
+README.md
+docs/
+.github/
+.git/
+
+# OS and Editor configs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+npm-debug.log*
+
+# Test files and Audit scripts
+tests/
+__tests__/
+*.test.js
+*.spec.js
+coverage/
+*.sh
+*AUDIT*.md
+*.audit
