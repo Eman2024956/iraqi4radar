@@ -99,16 +99,16 @@ export default function Footer({ onSelectGov }) {
             </h4>
             <ul className="footer-links-list">
               <li className="footer-bullet-item">
-                📊 <strong>Excel (CSV):</strong> <span className="desc">ترميز UTF-8 كامل للأحرف العربية</span>
+                📊 <strong>Excel:</strong> <span className="desc">جداول إلكترونية متوافقة مع الأحرف العربية</span>
               </li>
               <li className="footer-bullet-item">
-                📁 <strong>JSON Database:</strong> <span className="desc">ملفات قياسية لقواعد البيانات وأنظمة الإدارة</span>
+                📁 <strong>قواعد البيانات:</strong> <span className="desc">ملفات قياسية لقواعد البيانات وأنظمة الإدارة</span>
               </li>
               <li className="footer-bullet-item">
-                📇 <strong>vCard (.vcf):</strong> <span className="desc">إضافة فورية لجهات اتصال الهاتف</span>
+                📇 <strong>جهات الاتصال:</strong> <span className="desc">إضافة فورية لجهات اتصال الهاتف</span>
               </li>
               <li className="footer-bullet-item">
-                💬 <strong>WhatsApp Web / App:</strong> <span className="desc">روابط مباشرة جاهزة للإرسال</span>
+                💬 <strong>واتساب:</strong> <span className="desc">روابط مباشرة جاهزة للإرسال الفوري</span>
               </li>
               <li className="footer-bullet-item">
                 📱 <strong>مشغلو الاتصالات:</strong> <span className="desc">كشف زين العراق، آسيا سيل، كورك</span>

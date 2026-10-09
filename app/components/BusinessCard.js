@@ -66,9 +66,9 @@ export default function BusinessCard({
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '4px' }}>
                 <span className="card-category-badge">🏷️ {place.category}</span>
                 {place.engine === 'osm' ? (
-                  <span className="engine-badge osm" title="مصدر البيانات: OpenStreetMap (مجاني)">🗺️ OSM</span>
+                  <span className="engine-badge osm" title="مصدر البيانات: المحرك الجغرافي الشامل">🗺️ المحرك الشامل</span>
                 ) : (
-                  <span className="engine-badge google" title="مصدر البيانات: Google Maps Places API">🌐 Google</span>
+                  <span className="engine-badge google" title="مصدر البيانات: المحرك التجاري المعتمد">🌐 المحرك المعتمد</span>
                 )}
                 {place.isOpenNow !== null && (
                   <span
@@ -222,15 +222,15 @@ export default function BusinessCard({
           </a>
         )}
 
-        {/* Deep Details (OSM / Google) */}
+        {/* Deep Details */}
         <button
           type="button"
           onClick={() => onOpenDetails && onOpenDetails(place)}
           className="btn-secondary"
           style={{ padding: '7px 11px', fontSize: '0.8rem', fontWeight: 800 }}
-          title={place.engine === 'osm' ? 'عرض تفاصيل ووسوم OpenStreetMap الكاملة' : 'عرض تفاصيل النشاط'}
+          title="عرض تفاصيل وبيانات السجل الكاملة"
         >
-          {place.engine === 'osm' ? '🔍 OSM' : '🔍 تفاصيل'}
+          🔍 تفاصيل
         </button>
 
         {/* Copy Details */}

@@ -31,10 +31,10 @@ export default function MetricsModal({
             <span style={{ fontSize: '1.8rem' }}>📊</span>
             <div>
               <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-main)', margin: 0 }}>
-                متابعة الاستهلاك ومقاييس الأداء (API Metrics & Budget Control)
+                متابعة الاستهلاك والتحكم في الميزانية (Usage & Budget Control)
               </h2>
               <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 700 }}>
-                مراقبة فورية لعدد الطلبات، التكلفة التقديرية، والتحكم في سقف التوقف التلقائي
+                مراقبة فورية لعدد العمليات، التكلفة التقديرية، والتحكم في سقف التوقف التلقائي
               </span>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function MetricsModal({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '14px', marginTop: '20px' }}>
           {/* Total Requests */}
           <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)' }}>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 800, display: 'block' }}>إجمالي الاستعلامات</span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 800, display: 'block' }}>إجمالي العمليات</span>
             <strong style={{ fontSize: '1.7rem', color: 'var(--primary)', fontWeight: 900, display: 'block', marginTop: '4px' }}>
               {totalRequests}
             </strong>
@@ -61,20 +61,20 @@ export default function MetricsModal({
 
           {/* Google Maps Requests */}
           <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid rgba(59, 130, 246, 0.3)', borderRadius: 'var(--radius-md)' }}>
-            <span style={{ fontSize: '0.78rem', color: '#60a5fa', fontWeight: 800, display: 'block' }}>🌐 Google Places API</span>
+            <span style={{ fontSize: '0.78rem', color: '#60a5fa', fontWeight: 800, display: 'block' }}>🌐 المحرك السحابي المعتمد</span>
             <strong style={{ fontSize: '1.7rem', color: '#93c5fd', fontWeight: 900, display: 'block', marginTop: '4px' }}>
               {googleRequests}
             </strong>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontWeight: 700 }}>~${costPerGoogleRequest} لكل استعلام</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontWeight: 700 }}>~${costPerGoogleRequest} لكل عملية</span>
           </div>
 
           {/* OpenStreetMap Requests */}
           <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid rgba(16, 185, 129, 0.3)', borderRadius: 'var(--radius-md)' }}>
-            <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 800, display: 'block' }}>🗺️ OpenStreetMap</span>
+            <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 800, display: 'block' }}>🗺️ المحرك الجغرافي الشامل</span>
             <strong style={{ fontSize: '1.7rem', color: '#34d399', fontWeight: 900, display: 'block', marginTop: '4px' }}>
               {osmRequests}
             </strong>
-            <span style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: 800 }}>مجاني 100% ($0.00)</span>
+            <span style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: 800 }}>وصول شامل ومباشر ($0.00)</span>
           </div>
 
           {/* Estimated Cost */}
@@ -104,7 +104,7 @@ export default function MetricsModal({
               <span style={{ fontSize: '1.3rem' }}>🛡️</span>
               <div>
                 <strong style={{ fontSize: '1rem', color: 'var(--text-main)', fontWeight: 900, display: 'block' }}>
-                  سقف الأمان والتوقف التلقائي (Smart Auto-Stop Quota)
+                  سقف الأمان والتوقف التلقائي (Auto-Stop Control)
                 </strong>
                 <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>
                   يتوقف المحرك تلقائياً فور بلوغ الحد المحدد لحماية ميزانيتك ورصيدك
@@ -182,11 +182,11 @@ export default function MetricsModal({
           </div>
         </div>
 
-        {/* Google Cloud Platform Metrics & Billing Integration Guides */}
+        {/* Cloud Platform Metrics & Billing Integration Guides */}
         <div style={{ marginTop: '24px' }}>
           <h3 style={{ fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-main)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span>📈</span>
-            <span>روابط وإرشادات Google Maps Platform الرسمية</span>
+            <span>إرشادات ولوحات التحكم السحابية المعتمدة</span>
           </h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
@@ -194,10 +194,10 @@ export default function MetricsModal({
             <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <strong style={{ fontSize: '0.94rem', color: 'var(--text-main)', fontWeight: 900, display: 'block', marginBottom: '6px' }}>
-                  📊 صفحة المقاييس (Metrics)
+                  📊 صفحة المقاييس ومعدل العمليات
                 </strong>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
-                  تعرض الطلبات الفعلية لكل واجهة برمجة (Places API Text Search و Nearby Search)، الرسوم البيانية للحركة، ونسبة أكواد النجاح (200 OK) والأخطاء (429 أو 403).
+                  تعرض التقارير التفصيلية لحجم العمليات المنفذة، الرسوم البيانية لمعدل النشاط، ومؤشرات استقرار وسرعة الخدمة ومعدل الإنجاز.
                 </p>
               </div>
               <a
@@ -207,7 +207,7 @@ export default function MetricsModal({
                 className="btn-primary"
                 style={{ marginTop: '14px', fontSize: '0.82rem', padding: '8px 12px', textAlign: 'center', textDecoration: 'none' }}
               >
-                فتح صفحة Metrics ↗
+                فتح صفحة المقاييس ↗
               </a>
             </div>
 
@@ -215,7 +215,7 @@ export default function MetricsModal({
             <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <strong style={{ fontSize: '0.94rem', color: 'var(--text-main)', fontWeight: 900, display: 'block', marginBottom: '6px' }}>
-                  💰 الفواتير والميزانية (Budgets & Alerts)
+                  💰 إدارة الميزانية والتنبيهات
                 </strong>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
                   حدد ميزانية شهرية (مثلاً 20$) واضبط إشعارات فورية عبر البريد الإلكتروني عند وصول الصرف إلى 50% أو 90% أو 100% لتجنب أية رسوم غير متوقعة.
@@ -236,10 +236,10 @@ export default function MetricsModal({
             <div style={{ padding: '16px', background: 'var(--bg-surface)', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <strong style={{ fontSize: '0.94rem', color: 'var(--text-main)', fontWeight: 900, display: 'block', marginBottom: '6px' }}>
-                  🔒 الحصص اليومية (Daily Quotas)
+                  🔒 إدارة الحصص التشغيلية
                 </strong>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
-                  تتيح لك Google تعيين سقف يومي صلب (Hard Cap) لعدد الطلبات، بحيث يرفض السيرفر تلقائياً أي طلب يتجاوز الحد اليومي الذي تقرره بنفسك.
+                  تتيح لك المنصة تعيين سقف يومي محدد لعدد العمليات لتنظيم الاستخدام وفق خطتك التشغيلية بدقة.
                 </p>
               </div>
               <a
@@ -249,13 +249,13 @@ export default function MetricsModal({
                 className="btn-secondary"
                 style={{ marginTop: '14px', fontSize: '0.82rem', padding: '8px 12px', textAlign: 'center', textDecoration: 'none', fontWeight: 800 }}
               >
-                تحديد الحصص (Quotas) ↗
+                تحديد الحصص التشغيلية ↗
               </a>
             </div>
           </div>
         </div>
 
-        {/* Free Tier Notice Card */}
+        {/* Quota & Balance Notice Card */}
         <div
           style={{
             marginTop: '20px',
@@ -270,7 +270,7 @@ export default function MetricsModal({
         >
           <span style={{ fontSize: '1.5rem' }}>🎁</span>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-main)', lineHeight: 1.5 }}>
-            <strong style={{ color: 'var(--primary)', fontWeight: 900 }}>معلومة توفيرية هامة:</strong> تمنح شركة Google كل حساب سحابي رصيداً مجانياً متجدداً بقيمة <strong>200 دولار شهرياً</strong> (يعادل حوالي 6,000 إلى 8,000 استعلام مجاني شهرياً)! كما يمكنك دائماً استخدام تبويب <strong>OpenStreetMap</strong> للبحث غير المحدود مجاناً 100%.
+            <strong style={{ color: 'var(--primary)', fontWeight: 900 }}>معلومة توفيرية هامة:</strong> تمنح المنصة السحابية كل حساب رصيداً مدعوماً متجدداً بقيمة <strong>200 دولار شهرياً</strong> (يعادل تغطية حوالي 6,000 إلى 8,000 عملية شهرياً)! كما يوفر المحرك الشامل إمكانية البحث المرن غير المحدود على مدار الساعة.
           </div>
         </div>
       </div>

@@ -568,11 +568,11 @@ export default function Home() {
                 <span className="engine-tab-icon">🌐</span>
                 <div className="engine-tab-text">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <strong>محرك Google Maps Platform</strong>
+                    <strong>محرك الخرائط المعتمد</strong>
                     {selectedEngine === 'google' && <span className="tab-pill-active">نشط حالياً</span>}
                   </div>
                   <span className="engine-tab-desc">
-                    دقة تجارية عالية جداً • تقييمات رسمية • ~$0.025 / استعلام (رصيد شهري مجاني 200$)
+                    دقة تجارية فائقة • تقييمات موثقة • تغطية لكافة الأنشطة والشركات
                   </span>
                 </div>
               </button>
@@ -586,11 +586,11 @@ export default function Home() {
                 <span className="engine-tab-icon">🗺️</span>
                 <div className="engine-tab-text">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <strong>محرك OpenStreetMap (OSM)</strong>
-                    {selectedEngine === 'osm' && <span className="tab-pill-free">مجاني 100% 🟢</span>}
+                    <strong>المحرك الجغرافي الشامل</strong>
+                    {selectedEngine === 'osm' && <span className="tab-pill-free">شامل ومباشر 🟢</span>}
                   </div>
                   <span className="engine-tab-desc">
-                    مفتوح المصدر • مجاني تماماً • بدون مفتاح API • تكلفة $0.00
+                    تغطية جغرافية واسعة • وصول غير محدود • جاهز للاستخدام المباشر
                   </span>
                 </div>
               </button>
@@ -663,7 +663,7 @@ export default function Home() {
               ) : (
                 <>
                   <span>🚀</span>
-                  <span>بدء استخراج البيانات ({selectedEngine === 'osm' ? 'OSM المجاني' : 'Google Maps'})</span>
+                  <span>بدء استخراج البيانات ({selectedEngine === 'osm' ? 'المحرك الشامل' : 'المحرك المعتمد'})</span>
                 </>
               )}
             </button>
@@ -683,15 +683,15 @@ export default function Home() {
                 borderColor: 'rgba(245, 158, 11, 0.4)',
                 background: 'rgba(245, 158, 11, 0.08)',
               }}
-              title="متابعة عداد الطلبات، التكلفة، وحد التوقف التلقائي"
+              title="متابعة عداد العمليات، التكلفة، وحد التوقف التلقائي"
             >
               <span>📊</span>
               <span>
-                الطلبات: <strong style={{ color: '#fbbf24' }}>{totalRequests}</strong>
+                العمليات: <strong style={{ color: '#fbbf24' }}>{totalRequests}</strong>
                 {enableAutoStop ? ` / ${maxRequestsLimit}` : ''}
               </span>
               <span style={{ color: selectedEngine === 'osm' ? '#10b981' : '#fbbf24', fontSize: '0.8rem' }}>
-                {selectedEngine === 'osm' ? '(مجاني 100%)' : `(~$${estimatedCostUSD.toFixed(3)})`}
+                {selectedEngine === 'osm' ? '(تغطية شاملة)' : `(تقديري: $${estimatedCostUSD.toFixed(3)})`}
               </span>
               <span style={{ fontSize: '0.74rem', color: 'var(--primary)', textDecoration: 'underline' }}>
                 إعدادات السقف ↗
@@ -802,19 +802,49 @@ export default function Home() {
         {/* Results Explorer (Filters, View Mode, Cards Grid & Table) */}
         {records.length > 0 && (
           <section id="results-section" style={{ marginTop: '26px' }}>
-            {/* Filter and View Controls Bar */}
+            {/* Selection Toolbar & Results Stats */}
+            <div className="selection-bar">
+              <span className="selection-stats-text">
+                عرض <strong>{filteredRecords.length}</strong> من أصل <strong>{records.length}</strong> نشاط مستخرج
+                {selectedIds.length > 0 && <span className="selected-tag"> • تم تحديد {selectedIds.length} سجل</span>}
+              </span>
+
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  style={{ padding: '5px 12px', fontSize: '0.8rem' }}
+                  onClick={selectAllFiltered}
+                >
+                  تحديد الكل في العرض
+                </button>
+                {selectedIds.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    style={{ padding: '5px 12px', fontSize: '0.8rem' }}
+                    onClick={deselectAll}
+                  >
+                    إلغاء التحديد
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Filter and View Controls Bar - Directly AFTER نشاط مستخرج */}
             <div
+              className="results-filter-toolbar"
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '14px',
-                padding: '18px 22px',
+                padding: '16px 20px',
                 background: 'var(--bg-card)',
                 border: '1.5px solid var(--border-card)',
                 borderRadius: 'var(--radius-lg)',
-                marginBottom: '18px',
+                margin: '14px 0 18px 0',
               }}
             >
               {/* Search in Results */}
@@ -823,7 +853,7 @@ export default function Home() {
                   type="text"
                   className="custom-input"
                   style={{ padding: '9px 14px', fontSize: '0.86rem' }}
-                  placeholder="🔍 بحث في النتائج المستخرجة (الاسم، الهاتف، العنوان)..."
+                  placeholder="🔍 تصفية وبحث فوري في النتائج (الاسم، الهاتف، العنوان)..."
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
                 />
@@ -940,35 +970,6 @@ export default function Home() {
                 >
                   📑 جدول
                 </button>
-              </div>
-            </div>
-
-            {/* Selection Toolbar */}
-            <div className="selection-bar">
-              <span className="selection-stats-text">
-                عرض <strong>{filteredRecords.length}</strong> من أصل <strong>{records.length}</strong> نشاط مستخرج
-                {selectedIds.length > 0 && <span className="selected-tag"> • تم تحديد {selectedIds.length} سجل</span>}
-              </span>
-
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button
-                  type="button"
-                  className="btn-secondary"
-                  style={{ padding: '5px 12px', fontSize: '0.8rem' }}
-                  onClick={selectAllFiltered}
-                >
-                  تحديد الكل في العرض
-                </button>
-                {selectedIds.length > 0 && (
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    style={{ padding: '5px 12px', fontSize: '0.8rem' }}
-                    onClick={deselectAll}
-                  >
-                    إلغاء التحديد
-                  </button>
-                )}
               </div>
             </div>
 
@@ -1093,9 +1094,9 @@ export default function Home() {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                               <strong className="place-title-text">{place.name}</strong>
                               {place.engine === 'osm' ? (
-                                <span className="engine-badge osm" title="مصدر السجل: OpenStreetMap (مجاني)">🗺️ OSM</span>
+                                <span className="engine-badge osm" title="مصدر السجل: المحرك الجغرافي الشامل">🗺️ المحرك الشامل</span>
                               ) : (
-                                <span className="engine-badge google" title="مصدر السجل: Google Maps Places API">🌐 Google</span>
+                                <span className="engine-badge google" title="مصدر السجل: المحرك التجاري المعتمد">🌐 المحرك المعتمد</span>
                               )}
                             </div>
                             {sentMap[place.id] && (
@@ -1162,9 +1163,9 @@ export default function Home() {
                                 onClick={() => setSelectedPlaceForDetails(place)}
                                 className="btn-secondary"
                                 style={{ padding: '5px 10px', fontSize: '0.78rem', fontWeight: 800 }}
-                                title={place.engine === 'osm' ? 'عرض تفاصيل ووسوم OpenStreetMap الكاملة' : 'عرض تفاصيل المكان'}
+                                title="عرض تفاصيل وبيانات السجل الكاملة"
                               >
-                                {place.engine === 'osm' ? '🔍 OSM' : '🔍 تفاصيل'}
+                                🔍 تفاصيل
                               </button>
                             </div>
                           </td>

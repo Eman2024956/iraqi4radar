@@ -182,7 +182,7 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
         {/* Dynamic Prefix Settings Input */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <label style={{ fontSize: '0.82rem', fontWeight: 900, color: 'var(--text-main)' }}>
-            🏷️ بادئة الملف (Prefix):
+            🏷️ اسم الملف المصدّر:
           </label>
           <input
             type="text"
@@ -191,7 +191,7 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
             onChange={(e) => setCustomPrefix(e.target.value)}
             placeholder="iraq_radar"
             style={{ width: '160px', padding: '6px 12px', fontSize: '0.84rem', fontWeight: 800 }}
-            title="حدد بادئة اسم الملف المُصدر"
+            title="حدد اسم الملف المُصدر"
           />
         </div>
       </div>
@@ -209,7 +209,7 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
             style={{ fontSize: '0.86rem', padding: '9px 16px', fontWeight: 900 }}
             title="تصدير ملف Excel مع دعم تام للأحرف العربية"
           >
-            <span>📊 تصدير Excel (CSV)</span>
+            <span>📊 تصدير جدول إكسل (Excel)</span>
           </button>
 
           {/* JSON */}
@@ -219,9 +219,9 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
             disabled={!exportCount}
             className="btn-secondary"
             style={{ fontSize: '0.86rem', padding: '9px 16px', fontWeight: 900 }}
-            title="تصدير قاعدة بيانات JSON كاملة"
+            title="تصدير قاعدة بيانات كاملة للأنشطة"
           >
-            <span>📁 تصدير JSON</span>
+            <span>📁 تصدير قاعدة بيانات شاملة</span>
           </button>
 
           {/* vCard */}
@@ -231,9 +231,9 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
             disabled={!exportCount}
             className="btn-secondary"
             style={{ fontSize: '0.86rem', padding: '9px 16px', fontWeight: 900 }}
-            title="تصدير جهات اتصال هاتفية vCard لإضافتها إلى الهاتف بنقرة واحدة"
+            title="تصدير جهات اتصال لإضافتها إلى الهاتف بنقرة واحدة"
           >
-            <span>📇 جهات اتصال هاتف (.vcf)</span>
+            <span>📇 حفظ جهات الاتصال بالهاتف</span>
           </button>
 
           {/* TXT Phones */}
@@ -243,9 +243,9 @@ export default function ExportToolbar({ records, selectedIds, currentGovName }) 
             disabled={!exportCount}
             className="btn-secondary"
             style={{ fontSize: '0.86rem', padding: '9px 16px', fontWeight: 900 }}
-            title="تصدير أرقام الهواتف فقط كملف نصي .txt"
+            title="تصدير أرقام الهواتف فقط كملف نصي"
           >
-            <span>📄 قائمة هواتف (.txt)</span>
+            <span>📄 تصدير قائمة الهواتف نصياً</span>
           </button>
 
           {/* Copy Phone Numbers */}

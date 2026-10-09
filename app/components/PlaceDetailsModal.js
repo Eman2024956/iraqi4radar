@@ -65,8 +65,8 @@ export default function PlaceDetailsModal({
       `التصنيف: ${place.category}`,
       `العنوان: ${place.address}`,
       place.location ? `الإحداثيات: ${place.location.latitude}, ${place.location.longitude}` : '',
-      place.mapsUrl ? `رابط خرائط جوجل: ${place.mapsUrl}` : '',
-      place.osmUrl ? `رابط OpenStreetMap: ${place.osmUrl}` : '',
+      place.mapsUrl ? `رابط الخريطة المعتمدة: ${place.mapsUrl}` : '',
+      place.osmUrl ? `رابط الخريطة المفتوحة: ${place.osmUrl}` : '',
     ]
       .filter(Boolean)
       .join('\n');
@@ -102,9 +102,9 @@ export default function PlaceDetailsModal({
                   {place.name}
                 </h2>
                 {isOsm ? (
-                  <span className="engine-badge osm">OpenStreetMap Verified</span>
+                  <span className="engine-badge osm">سجل جغرافي موثق</span>
                 ) : (
-                  <span className="engine-badge google">Google Places Verified</span>
+                  <span className="engine-badge google">سجل تجاري معتمد</span>
                 )}
               </div>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 700 }}>
@@ -141,7 +141,7 @@ export default function PlaceDetailsModal({
             }}
           >
             <span className="animate-spin">⏳</span>
-            <span>جارٍ سحب التفاصيل العميقة والوسوم مباشرة من خادم OpenStreetMap...</span>
+            <span>جارٍ فحص واستخراج التفاصيل والبيانات التكميلية للسجل...</span>
           </div>
         )}
 
@@ -272,7 +272,7 @@ export default function PlaceDetailsModal({
           <div style={{ marginTop: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
               <strong style={{ fontSize: '0.92rem', color: 'var(--text-main)', fontWeight: 900 }}>
-                🏷️ وسوم OpenStreetMap التفصيلية (OSM Tags):
+                🏷️ البيانات والتصنيفات الجغرافية الموثقة:
               </strong>
               {place.osmId && (
                 <button
@@ -280,9 +280,9 @@ export default function PlaceDetailsModal({
                   onClick={() => fetchOsmDetails(place.osmId, place.osmType || 'N')}
                   className="btn-secondary"
                   style={{ padding: '4px 10px', fontSize: '0.76rem', fontWeight: 800 }}
-                  title="إعادة جلب أحدث تفاصيل مباشرة من OSM"
+                  title="تحديث البيانات الجغرافية مباشرة"
                 >
-                  🔄 تحديث الوسوم
+                  🔄 تحديث البيانات
                 </button>
               )}
             </div>
@@ -298,17 +298,17 @@ export default function PlaceDetailsModal({
                 fontSize: '0.78rem',
               }}
             >
-              <table style={{ width: '100%', borderCollapse: 'collapse', direction: 'ltr', textAlign: 'left' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', direction: 'rtl', textAlign: 'right' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--border-subtle)', color: 'var(--text-muted)' }}>
-                    <th style={{ padding: '6px 8px' }}>Tag Key</th>
-                    <th style={{ padding: '6px 8px' }}>Value</th>
+                    <th style={{ padding: '6px 8px' }}>المعيار الجغرافي</th>
+                    <th style={{ padding: '6px 8px' }}>القيمة والبيان</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries({ ...(place.rawTags || {}), ...(deepDetails?.allTags || {}) }).map(([k, v]) => (
                     <tr key={k} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                      <td style={{ padding: '5px 8px', color: '#38bdf8', fontFamily: 'monospace' }}>{k}</td>
+                      <td style={{ padding: '5px 8px', color: '#38bdf8', fontFamily: 'monospace', direction: 'ltr', textAlign: 'left' }}>{k}</td>
                       <td style={{ padding: '5px 8px', color: 'var(--text-main)', wordBreak: 'break-all' }}>{String(v)}</td>
                     </tr>
                   ))}
@@ -352,7 +352,7 @@ export default function PlaceDetailsModal({
                 className="btn-secondary"
                 style={{ padding: '8px 14px', fontSize: '0.84rem', fontWeight: 800, textDecoration: 'none' }}
               >
-                🗺️ خرائط Google
+                🗺️ الخريطة المعتمدة
               </a>
             )}
 
@@ -364,7 +364,7 @@ export default function PlaceDetailsModal({
                 className="btn-secondary"
                 style={{ padding: '8px 14px', fontSize: '0.84rem', fontWeight: 800, textDecoration: 'none' }}
               >
-                🌐 صفحة العنصر في OSM ↗
+                🌐 الخريطة المفتوحة ↗
               </a>
             )}
           </div>
