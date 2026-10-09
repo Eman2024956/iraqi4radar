@@ -64,6 +64,11 @@ export default function BusinessCard({
               <h4 className="card-title">{place.name}</h4>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '4px' }}>
                 <span className="card-category-badge">🏷️ {place.category}</span>
+                {place.engine === 'osm' ? (
+                  <span className="engine-badge osm" title="مصدر البيانات: OpenStreetMap (مجاني)">🗺️ OSM</span>
+                ) : (
+                  <span className="engine-badge google" title="مصدر البيانات: Google Maps Places API">🌐 Google</span>
+                )}
                 {place.isOpenNow !== null && (
                   <span
                     style={{

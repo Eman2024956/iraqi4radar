@@ -9,6 +9,7 @@ import BusinessCard from './components/BusinessCard';
 import ExportToolbar from './components/ExportToolbar';
 import QuickMessengerModal from './components/QuickMessengerModal';
 import GuideModal from './components/GuideModal';
+import MetricsModal from './components/MetricsModal';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
 import { IRAQ_GOVERNORATES, BUSINESS_CATEGORIES, WHATSAPP_TEMPLATES } from './data/iraqData';
@@ -53,6 +54,18 @@ export default function Home() {
   const [duplicateCount, setDuplicateCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  // 3.1 محرك الخدمة (Google Maps vs OpenStreetMap)
+  const [selectedEngine, setSelectedEngine] = useState('google'); // 'google' | 'osm'
+
+  // 3.2 عدادات الطلبات والتكلفة التقديرية وسقف التوقف التلقائي
+  const [totalRequests, setTotalRequests] = useState(0);
+  const [googleRequests, setGoogleRequests] = useState(0);
+  const [osmRequests, setOsmRequests] = useState(0);
+  const [estimatedCostUSD, setEstimatedCostUSD] = useState(0);
+  const [maxRequestsLimit, setMaxRequestsLimit] = useState(50);
+  const [enableAutoStop, setEnableAutoStop] = useState(true);
+  const [isMetricsOpen, setIsMetricsOpen] = useState(false);
 
   // 4. المراسلة عبر واتساب
   const [messageTemplate, setMessageTemplate] = useState(WHATSAPP_TEMPLATES[0].body);
@@ -179,9 +192,21 @@ export default function Home() {
     records.forEach((r) => seenMap.set(r.id, r));
 
     let localDuplicates = 0;
+    let sessionReqs = totalRequests;
+    let sessionGoogleReqs = googleRequests;
+    let sessionOsmReqs = osmRequests;
+    let sessionCost = estimatedCostUSD;
 
     for (let i = 0; i < generatedQueries.length; i++) {
       if (stopRef.current || seenMap.size >= targetCount) break;
+
+      // فحص حد الأمان والتوقف التلقائي للطلبات
+      if (enableAutoStop && sessionReqs >= maxRequestsLimit) {
+        setStatusMessage(
+          `🛑 تم التوقف التلقائي الذكي: تم بلوغ سقف الأمان المحدد للطلبات (${maxRequestsLimit} طلب • ~$${sessionCost.toFixed(3)}). تم إيقاف الرادار لحماية الرصيد.`
+        );
+        break;
+      }
 
       // فحص الإيقاف المؤقت
       while (pauseRef.current && !stopRef.current) {
@@ -199,10 +224,24 @@ export default function Home() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             query: q,
+            engine: selectedEngine,
             requirePhone,
             maxPages: 2,
           }),
         });
+
+        // زيادة عدادات الاستهلاك والتكلفة
+        sessionReqs++;
+        setTotalRequests(sessionReqs);
+        if (selectedEngine === 'google') {
+          sessionGoogleReqs++;
+          setGoogleRequests(sessionGoogleReqs);
+          sessionCost += 0.025;
+          setEstimatedCostUSD(sessionCost);
+        } else {
+          sessionOsmReqs++;
+          setOsmRequests(sessionOsmReqs);
+        }
 
         const data = await res.json();
         if (!res.ok) {
@@ -231,8 +270,8 @@ export default function Home() {
 
         setRecords([...seenMap.values()]);
 
-        // تأخير طفيف بين الاستعلامات لاحترام Google API Rate Limit
-        await new Promise((r) => setTimeout(r, 600));
+        // تأخير طفيف بين الاستعلامات
+        await new Promise((r) => setTimeout(r, selectedEngine === 'osm' ? 800 : 600));
       } catch (err) {
         console.error('Extraction query error:', err);
         setStatusMessage(`تنبيه: تم تجاوز استعلام بسبب: ${err.message}`);
@@ -411,10 +450,13 @@ export default function Home() {
       {/* Header */}
       <Header
         totalRecords={records.length}
+        totalRequests={totalRequests}
+        estimatedCostUSD={estimatedCostUSD}
         isRunning={running}
         theme={theme}
         toggleTheme={toggleTheme}
         onOpenGuide={() => setIsGuideOpen(true)}
+        onOpenMetrics={() => setIsMetricsOpen(true)}
       />
 
       {/* Main Content */}
@@ -506,9 +548,50 @@ export default function Home() {
             <div className="panel-title-wrap">
               <div className="panel-icon-circle">⚙️</div>
               <div>
-                <h3 className="panel-title">إعدادات محرك الاستخراج والتشغيل</h3>
-                <p className="panel-subtitle">حدد سقف النتائج وخيارات التصفية وانطلق بضغطة زر</p>
+                <h3 className="panel-title">إعدادات محرك الاستخراج والخدمات المتاحة</h3>
+                <p className="panel-subtitle">اختر محرك البحث (Google أو OpenStreetMap) وحدد سقف النتائج ومتابعة الاستهلاك</p>
               </div>
+            </div>
+          </div>
+
+          {/* Engine Service Tabs: Google Maps Platform vs OpenStreetMap */}
+          <div className="engine-tabs-container">
+            <div className="engine-tabs-bar">
+              <button
+                type="button"
+                className={`engine-tab-btn ${selectedEngine === 'google' ? 'active' : ''}`}
+                onClick={() => setSelectedEngine('google')}
+                disabled={running}
+              >
+                <span className="engine-tab-icon">🌐</span>
+                <div className="engine-tab-text">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <strong>محرك Google Maps Platform</strong>
+                    {selectedEngine === 'google' && <span className="tab-pill-active">نشط حالياً</span>}
+                  </div>
+                  <span className="engine-tab-desc">
+                    دقة تجارية عالية جداً • تقييمات رسمية • ~$0.025 / استعلام (رصيد شهري مجاني 200$)
+                  </span>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                className={`engine-tab-btn ${selectedEngine === 'osm' ? 'active' : ''}`}
+                onClick={() => setSelectedEngine('osm')}
+                disabled={running}
+              >
+                <span className="engine-tab-icon">🗺️</span>
+                <div className="engine-tab-text">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <strong>محرك OpenStreetMap (OSM)</strong>
+                    {selectedEngine === 'osm' && <span className="tab-pill-free">مجاني 100% 🟢</span>}
+                  </div>
+                  <span className="engine-tab-desc">
+                    مفتوح المصدر • مجاني تماماً • بدون مفتاح API • تكلفة $0.00
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
@@ -562,7 +645,7 @@ export default function Home() {
           </div>
 
           {/* Action Buttons Row */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '22px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '22px', alignItems: 'center' }}>
             <button
               type="button"
               className="btn-primary"
@@ -578,9 +661,39 @@ export default function Home() {
               ) : (
                 <>
                   <span>🚀</span>
-                  <span>بدء استخراج البيانات</span>
+                  <span>بدء استخراج البيانات ({selectedEngine === 'osm' ? 'OSM المجاني' : 'Google Maps'})</span>
                 </>
               )}
+            </button>
+
+            {/* Live Metrics & Quota Button */}
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => setIsMetricsOpen(true)}
+              style={{
+                padding: '9px 16px',
+                fontSize: '0.86rem',
+                fontWeight: 900,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                borderColor: 'rgba(245, 158, 11, 0.4)',
+                background: 'rgba(245, 158, 11, 0.08)',
+              }}
+              title="متابعة عداد الطلبات، التكلفة، وحد التوقف التلقائي"
+            >
+              <span>📊</span>
+              <span>
+                الطلبات: <strong style={{ color: '#fbbf24' }}>{totalRequests}</strong>
+                {enableAutoStop ? ` / ${maxRequestsLimit}` : ''}
+              </span>
+              <span style={{ color: selectedEngine === 'osm' ? '#10b981' : '#fbbf24', fontSize: '0.8rem' }}>
+                {selectedEngine === 'osm' ? '(مجاني 100%)' : `(~$${estimatedCostUSD.toFixed(3)})`}
+              </span>
+              <span style={{ fontSize: '0.74rem', color: 'var(--primary)', textDecoration: 'underline' }}>
+                إعدادات السقف ↗
+              </span>
             </button>
 
             {running && (
@@ -974,7 +1087,14 @@ export default function Home() {
                             />
                           </td>
                           <td className="td-name">
-                            <strong className="place-title-text">{place.name}</strong>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                              <strong className="place-title-text">{place.name}</strong>
+                              {place.engine === 'osm' ? (
+                                <span className="engine-badge osm" title="مصدر السجل: OpenStreetMap (مجاني)">🗺️ OSM</span>
+                              ) : (
+                                <span className="engine-badge google" title="مصدر السجل: Google Maps Places API">🌐 Google</span>
+                              )}
+                            </div>
                             {sentMap[place.id] && (
                               <span className="sent-pill">
                                 ✓ تمت المراسلة
@@ -1061,14 +1181,30 @@ export default function Home() {
       {/* User Guide Modal */}
       <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
 
+      {/* API Metrics, Request Counter, Cost & Auto-Stop Modal */}
+      <MetricsModal
+        isOpen={isMetricsOpen}
+        onClose={() => setIsMetricsOpen(false)}
+        totalRequests={totalRequests}
+        googleRequests={googleRequests}
+        osmRequests={osmRequests}
+        estimatedCostUSD={estimatedCostUSD}
+        maxRequestsLimit={maxRequestsLimit}
+        setMaxRequestsLimit={setMaxRequestsLimit}
+        enableAutoStop={enableAutoStop}
+        setEnableAutoStop={setEnableAutoStop}
+      />
+
       {/* Footer */}
       <Footer onSelectGov={(govId) => setSelectedGov(govId)} />
 
       {/* Mobile Sticky Bottom Navigation Bar */}
       <MobileBottomNav
         totalRecords={records.length}
+        totalRequests={totalRequests}
         onOpenMessenger={() => setIsMessengerOpen(true)}
         onOpenGuide={() => setIsGuideOpen(true)}
+        onOpenMetrics={() => setIsMetricsOpen(true)}
       />
     </div>
   );

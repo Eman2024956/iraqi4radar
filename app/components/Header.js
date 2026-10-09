@@ -1,6 +1,15 @@
 'use client';
 
-export default function Header({ totalRecords, isRunning, theme, toggleTheme, onOpenGuide }) {
+export default function Header({
+  totalRecords,
+  totalRequests = 0,
+  estimatedCostUSD = 0,
+  isRunning,
+  theme,
+  toggleTheme,
+  onOpenGuide,
+  onOpenMetrics,
+}) {
   return (
     <header className="header-glass">
       <div className="header-inner">
@@ -37,6 +46,32 @@ export default function Header({ totalRecords, isRunning, theme, toggleTheme, on
 
         {/* Live Counters & Controls */}
         <div className="header-actions">
+          {/* Live Requests & Cost Metrics Button */}
+          <button
+            type="button"
+            onClick={onOpenMetrics}
+            className="btn-secondary header-metrics-btn"
+            style={{
+              padding: '7px 12px',
+              fontSize: '0.82rem',
+              fontWeight: 900,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              borderColor: 'rgba(245, 158, 11, 0.4)',
+              background: 'rgba(245, 158, 11, 0.08)',
+            }}
+            title="متابعة استهلاك الطلبات والتكلفة التقديرية وحد التوقف"
+          >
+            <span>📊</span>
+            <span style={{ color: '#fbbf24', direction: 'ltr', display: 'inline-block' }}>
+              {totalRequests} طلب
+            </span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+              (${estimatedCostUSD.toFixed(2)})
+            </span>
+          </button>
+
           {/* Live Data Badge */}
           <div className="status-pill" title={`إجمالي السجلات: ${totalRecords}`}>
             <span className="status-indicator-dot" style={{ backgroundColor: isRunning ? '#fbbf24' : '#10b981' }} />

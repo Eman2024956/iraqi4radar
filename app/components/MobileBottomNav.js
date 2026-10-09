@@ -2,8 +2,10 @@
 
 export default function MobileBottomNav({
   totalRecords,
+  totalRequests = 0,
   onOpenMessenger,
   onOpenGuide,
+  onOpenMetrics,
 }) {
   function scrollTo(id) {
     const el = document.getElementById(id);
@@ -55,7 +57,25 @@ export default function MobileBottomNav({
           <span className="mobile-nav-label highlight-label">واتساب</span>
         </button>
 
-        {/* 4. Export & Save */}
+        {/* 4. Real-time Metrics & Cost Control */}
+        <button
+          type="button"
+          className="mobile-nav-item"
+          onClick={onOpenMetrics}
+          title="متابعة استهلاك الطلبات والتكلفة وحد التوقف"
+        >
+          <div className="mobile-nav-icon-wrapper">
+            <span className="mobile-nav-icon">📈</span>
+            {totalRequests > 0 && (
+              <span className="mobile-nav-badge" style={{ background: '#f59e0b', color: '#000000' }}>
+                {totalRequests}
+              </span>
+            )}
+          </div>
+          <span className="mobile-nav-label">المقاييس</span>
+        </button>
+
+        {/* 5. Export & Save */}
         <button
           type="button"
           className="mobile-nav-item"
@@ -64,17 +84,6 @@ export default function MobileBottomNav({
         >
           <span className="mobile-nav-icon">💾</span>
           <span className="mobile-nav-label">التصدير</span>
-        </button>
-
-        {/* 5. User Guide */}
-        <button
-          type="button"
-          className="mobile-nav-item"
-          onClick={onOpenGuide}
-          title="فتح دليل استخدام منصة رادار العراق"
-        >
-          <span className="mobile-nav-icon">📖</span>
-          <span className="mobile-nav-label">الدليل</span>
         </button>
       </div>
     </nav>
